@@ -1,4 +1,4 @@
-# Network-I
+# Network
 Following Tufts Comp 112 Networks & MIT 6.02 Digital Communication OCW
 
 Source code for source code:
