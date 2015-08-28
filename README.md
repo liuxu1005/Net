@@ -1,20 +1,28 @@
 # Network-I
 Following Tufts Comp 112 Networks & MIT 6.02 Digital Communication OCW
 
-Source code for source code: Huffman encoding/decoding and LZW encoding/decoding.
+Source code for source code:
+
+        Huffman encoding/decoding and LZW encoding/decoding.
         source code is for compressing
         
-Channel cod for channel coding:Rectangular Parity encoding/Syndrom decoding 
-        channel code is for error detection and correction 
-        channel code: /Viterbi decoding
+Channel cod for channel coding:
 
-Modulation/Demodulation for modulating and  demodulating on LTI channel
+	Rectangular Parity encoding/Syndrom decoding 
+	channel code is for error detection and correction 
+	Viterbi decoding
 
-MAC for media access control (MAC): time division media access/Aloha/carrier sense media access
+Modulation/Demodulation for 
+	modulating and  demodulating on LTI channel
 
-Routing for routing: Distance vector routing/Link state routing
+MAC for media access control (MAC): 
+	time division media access/Aloha/carrier sense media access
 
-TCP for transport control protcol(TCP): stop-and-wait protcol/window sliding protcol
+Routing for routing: 
+	Distance vector routing/Link state routing
+
+TCP for transport control protcol(TCP): 
+	stop-and-wait protcol/window sliding protcol
 
 Web sever
 
