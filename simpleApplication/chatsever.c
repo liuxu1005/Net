@@ -94,6 +94,11 @@ int main(int argc, char *argv[])
                }
           
                if (n < 0) error("ERROR reading from socket");
+               if (n == 0) {
+                    FD_CLR(check_sock, &activeset);
+                    //set the socket as inactive, to be done
+                    continue;
+               }
                if(check_sock > max_fd)
                     max_fd = check_sock;
                FD_SET(check_sock, &activeset);
@@ -104,29 +109,21 @@ int main(int argc, char *argv[])
                     case 1:
                          printf("receive hello\n");
                          break;
-                    case 2:
-                         printf("receive hello\n");
-                         break;
+
                     case 3:
                          printf("receive hello\n");
                          break;
-                    case 4:
-                         printf("receive hello\n");
-                         break;
+               
                     case 5:
                          printf("receive hello\n");
                          break;
+
                     case 6:
-                         printf("receive hello\n");
-                         break;
-                    case 7:
-                         printf("receive hello\n");
-                         break;
-                    case 8:
                          printf("receive hello\n");
                          break;
      
                     default:
+                    
                          break;
 
                }
