@@ -1,0 +1,142 @@
+/* A simple chat server in the internet domain using TCP
+   The port number is passed as an argument */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h> 
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+//massege format protocol
+typedef struct __attribute__((__packed__)) 
+{ 
+     unsigned short type;
+     char src[20];
+     char dst[20];
+     unsigned int length;
+     unsigned int msgId;
+     char msg[400];
+} message;
+
+typedef struct client
+{
+     char clientId[20];
+     int sockfd;
+     char status;
+     struct client *next;     
+} *client;
+
+int fwdmsg ()
+{
+
+}
+
+
+void error(const char *msg)
+{
+    perror(msg);
+    exit(1);
+}
+
+int main(int argc, char *argv[])
+{
+     int sockfd, newsockfd, portno;
+     socklen_t clilen;
+     char sdbuf[450];
+     char rebuf[450];
+     struct sockaddr_in serv_addr, cli_addr;
+     int n, rblen, sblen, max_fd = 0;
+     fd_set activeset, readset;
+     FD_ZERO(&activeset);
+     if (argc < 2) {
+         fprintf(stderr,"ERROR, no port provided\n");
+         exit(1);
+     }
+     sockfd = socket(AF_INET, SOCK_STREAM, 0);
+     if (sockfd < 0) 
+        error("ERROR opening socket");
+     if(sockfd > max_fd)
+          max_fd = sockfd;
+     FD_SET(sockfd, &activeset);
+     bzero((char *) &serv_addr, sizeof(serv_addr));
+     portno = atoi(argv[1]);
+     serv_addr.sin_family = AF_INET;
+     serv_addr.sin_addr.s_addr = INADDR_ANY;
+     serv_addr.sin_port = htons(portno);
+     if (bind(sockfd, (struct sockaddr *) &serv_addr,
+                              sizeof(serv_addr)) < 0) 
+               error("ERROR on binding");
+     listen(sockfd, 20);
+     clilen = sizeof(cli_addr);
+
+     while (1) {
+          readset = activeset;
+          int r;
+          if(r = select(max_fd + 1, &readset, NULL, NULL, NULL) < 0)
+               error("ERROR on selecting");
+          if(r == 0)
+               continue;
+          int check_sock;
+          for(check_sock = 0; check_sock <= max_fd; check_sock++) {
+               if(!(FD_ISSET(check_sock, &readset)))
+                    continue;
+               bzero(rebuf,450);
+               if(check_sock = sockfd) {
+                    newsockfd = accept(sockfd, 
+                           (struct sockaddr *) &cli_addr, 
+                                               &clilen);
+                    if (newsockfd < 0) 
+                         error("ERROR on accept");
+                    n = read(newsockfd, rebuf,450);
+               } else {
+                    n = read(check_sock, rebuf,450);
+               }
+          
+               if (n < 0) error("ERROR reading from socket");
+               if(check_sock > max_fd)
+                    max_fd = check_sock;
+               FD_SET(check_sock, &activeset);
+ 
+               message *msg = (message *)rebuf;
+
+               switch (ntohs(msg->type)) {
+                    case 1:
+                         printf("receive hello\n");
+                         break;
+                    case 2:
+                         printf("receive hello\n");
+                         break;
+                    case 3:
+                         printf("receive hello\n");
+                         break;
+                    case 4:
+                         printf("receive hello\n");
+                         break;
+                    case 5:
+                         printf("receive hello\n");
+                         break;
+                    case 6:
+                         printf("receive hello\n");
+                         break;
+                    case 7:
+                         printf("receive hello\n");
+                         break;
+                    case 8:
+                         printf("receive hello\n");
+                         break;
+     
+                    default:
+                         break;
+
+               }
+          }
+         
+          //n = write(newsockfd, reb, strlen(reb));
+          //if (n < 0) error("ERROR writing to socket");
+          
+     } 
+     close(sockfd);
+     return 0; 
+}
+
