@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
 {
      int sockfd, newsockfd, portno;
      socklen_t clilen;
-     char buffer[256];
-     char reb[256];
+     char buffer[512];
+     char reb[512];
      struct sockaddr_in serv_addr, cli_addr;
      int n, rblen;
      if (argc < 2) {
@@ -37,24 +37,27 @@ int main(int argc, char *argv[])
      if (bind(sockfd, (struct sockaddr *) &serv_addr,
               sizeof(serv_addr)) < 0) 
               error("ERROR on binding");
-     listen(sockfd,5);
+     if(listen(sockfd,10) < 0)
+               error("ERROR on listen");
+     clilen = sizeof(cli_addr);
      while (1) {
-          clilen = sizeof(cli_addr);
-
+          
           newsockfd = accept(sockfd, 
                       (struct sockaddr *) &cli_addr, 
                       &clilen);
           if (newsockfd < 0) 
                error("ERROR on accept");
-          bzero(buffer,256);
-          n = read(newsockfd,buffer,255);
+          bzero(buffer,512);
+ 
+          n = read(newsockfd,buffer,511);
           if (n < 0) error("ERROR reading from socket");
           printf("Here is the message: %s\n",buffer);
-          sprintf(reb, "HTTP/1.1 200 OK\nContent-type: text/html\n\n<html><body><h1>Hello World</h1></body></html>\n");
+          sprintf(reb, "HTTP/1.1 200 OK\nContent-type: text/plain\n\n%s\n", 
+                                        buffer);
           n = write(newsockfd, reb, strlen(reb));
           if (n < 0) error("ERROR writing to socket");
           close(newsockfd);
-     } 
+     }
      close(sockfd);
      return 0; 
 }
