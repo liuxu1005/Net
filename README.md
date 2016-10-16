@@ -1,33 +1,34 @@
 # Network
 Following Tufts Comp 112 Networks & MIT 6.02 Digital Communication OCW
 
-Source code for source code:
+Source code (Link Layer):
 
         Huffman encoding/decoding and LZW encoding/decoding.
         source code is for compressing
         
-Channel cod for channel coding:
+Channel code (Link Layer):
 
 	Rectangular Parity encoding/Syndrom decoding 
 	channel code is for error detection and correction 
 	Viterbi decoding
 
-Modulation/Demodulation for 
+Modulation/Demodulation (Linke Layer): 
 	
 	modulating and  demodulating on LTI channel
 
-MAC for media access control (MAC): 
+Media Access Control (Link Layer): 
 	
 	time division media access/Aloha/carrier sense media access
 
-Routing for routing: 
+Routing (Network Layer): 
 	
 	Distance vector routing/Link state routing
 
-TCP for transport control protcol(TCP): 
+Transport Control Protocol(Transportation Layer): 
 	
 	stop-and-wait protcol/window sliding protcol
 
+Application Layer:
 Web sever
 
 Chat sever
